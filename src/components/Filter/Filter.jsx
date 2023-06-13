@@ -1,34 +1,36 @@
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { getFilter } from 'redux/selectors';
+// import { updateFilter } from 'redux/actions';
 
-import { getFilter } from 'redux/selectors';
+import filterStore from 'stores/filterStore';
 
-import { updateFilter } from 'redux/actions';
 import { Button } from '../common.styled';
 import { FilterWrapper } from './Filter.styled';
+import { observer } from 'mobx-react-lite';
+import { useContext } from 'react';
 
-const Filter = () => {
-  const filter = useSelector(getFilter);
-  const dispatch = useDispatch();
+const Filter = observer(() => {
+  // const filter = useSelector(getFilter);
+  // const dispatch = useDispatch();
+
+  const { filter, update } = useContext(MobxContext);
+
   return (
     <FilterWrapper>
       <input
         type="text"
         name="filter"
         value={filter}
-        onChange={e => {
-          dispatch(updateFilter(e.target.value));
-        }}
+        onChange={e => update(e.target.value)}
       />
       <Button
         type="button"
-        onClick={() => {
-          dispatch(updateFilter(''));
-        }}
+        onClick={e => update('')}
       >
         Clear field
       </Button>
     </FilterWrapper>
   );
-};
+});
 
 export default Filter;

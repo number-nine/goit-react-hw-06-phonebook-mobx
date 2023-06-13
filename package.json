@@ -2,7 +2,7 @@
   "name": "react-homework-template",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://number-nine.github.io/goit-react-hw-06-phonebook-vanilla/",
+  "homepage": "https://number-nine.github.io/goit-react-hw-06-phonebook-mobx/",
   "dependencies": {
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
@@ -10,6 +10,8 @@
     "@reduxjs/toolkit": "^1.9.5",
     "axios": "^1.4.0",
     "formik": "^2.2.9",
+    "mobx": "^6.9.0",
+    "mobx-react-lite": "^3.4.3",
     "nanoid": "^4.0.2",
     "notiflix": "^3.2.6",
     "react": "^18.2.0",
