@@ -1,14 +1,18 @@
-import { useSelector } from 'react-redux';
+import { useContext } from 'react';
+
 import Section from 'components/Section';
 import ContactsList from 'components/ContactsList';
 import Filter from 'components/Filter';
 import ContactEditor from 'components/ContactEditor';
-import { getAuth } from 'redux/selectors';
+import { StoreContext } from 'index';
 
 import { Container } from 'pages/Pages.styled';
+import { observer } from 'mobx-react-lite';
 
-export default function Home() {
-  const { isLoggedIn } = useSelector(getAuth);
+const Home = observer(() => {
+  const {
+    auth: { isLoggedIn },
+  } = useContext(StoreContext);
 
   return (
     <Container>
@@ -25,4 +29,6 @@ export default function Home() {
       </Section>
     </Container>
   );
-}
+});
+
+export default Home;

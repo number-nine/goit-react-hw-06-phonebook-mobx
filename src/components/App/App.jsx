@@ -1,13 +1,16 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useContext } from 'react';
 
 import SharedLayout from 'components/SharedLayout';
 import Home from 'pages/Home';
 import Dashboard from 'pages/Dashboard';
-import {getAuth} from 'redux/selectors'
+import { StoreContext } from 'index';
+import { observer } from 'mobx-react-lite';
 
-export default function App() {
-  const { isLoggedIn } = useSelector(getAuth);
+const App = observer(() => {
+  const {
+    auth: { isLoggedIn },
+  } = useContext(StoreContext);
 
   return (
     <Routes>
@@ -21,4 +24,6 @@ export default function App() {
       <Route path="*" element={<div>Not Found</div>} />
     </Routes>
   );
-}
+});
+
+export default App;

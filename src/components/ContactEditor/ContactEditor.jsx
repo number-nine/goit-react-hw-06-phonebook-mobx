@@ -1,7 +1,7 @@
-import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
-
-import { addContact } from 'redux/actions';
+import { useContext } from 'react';
+import { StoreContext } from 'index';
+// import { observer } from 'mobx-react-lite';
 
 import {
   FormStyled,
@@ -40,7 +40,9 @@ const validate = values => {
 };
 
 const ContactEditor = () => {
-  const dispatch = useDispatch();
+  const {
+    contacts: { add },
+  } = useContext(StoreContext);
 
   const formik = useFormik({
     initialValues: {
@@ -52,7 +54,7 @@ const ContactEditor = () => {
     validateOnChange: false,
     validateOnBlur: false,
     onSubmit: (values, { resetForm }) => {
-      dispatch(addContact(values));
+      add(values);
       resetForm();
     },
   });

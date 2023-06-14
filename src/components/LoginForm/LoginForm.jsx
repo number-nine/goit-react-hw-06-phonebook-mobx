@@ -1,17 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { useContext } from 'react';
+import { StoreContext } from 'index';
+import { observer } from 'mobx-react-lite';
 
 import { FormStyled, ButtonStyled, LabelStyled } from './LoginForm.styled';
-import { loginAuth, logoutAuth } from 'redux/actions';
-import { getAuth } from 'redux/selectors';
 
-const LoginForm = () => {
-  const dispatch = useDispatch();
-  const { userName: currentUser, isLoggedIn } = useSelector(getAuth);
+const LoginForm = observer(() => {
+  const {
+    auth: { isLoggedIn, login, logout, userName: currentUser },
+  } = useContext(StoreContext);
   const handleSubmit = e => {
     e.preventDefault();
     if (isLoggedIn) {
-      dispatch(logoutAuth());
+      logout();
       return;
     }
 
@@ -20,7 +21,7 @@ const LoginForm = () => {
       Notify.failure('Enter valid username');
       return;
     }
-    dispatch(loginAuth({ userName }));
+    login(userName);
     e.target.reset();
     return;
   };
@@ -36,6 +37,6 @@ const LoginForm = () => {
       {isLoggedIn && <ButtonStyled type="submit">Log out</ButtonStyled>}
     </FormStyled>
   );
-};
+});
 
 export default LoginForm;

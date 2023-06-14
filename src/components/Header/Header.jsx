@@ -1,11 +1,14 @@
-import { useSelector } from 'react-redux';
-import { NavLinkStyled, HeaderStyled } from './Header.styled';
-import { getAuth } from 'redux/selectors';
+import { useContext } from 'react';
+import { StoreContext } from 'index';
 
 import LoginForm from 'components/LoginForm';
+import { NavLinkStyled, HeaderStyled } from './Header.styled';
+import { observer } from 'mobx-react-lite';
 
-export default function Header() {
-  const { isLoggedIn } = useSelector(getAuth);
+const Header = observer(() => {
+  const {
+    auth: { isLoggedIn },
+  } = useContext(StoreContext);
 
   return (
     <HeaderStyled>
@@ -16,4 +19,6 @@ export default function Header() {
       <LoginForm />
     </HeaderStyled>
   );
-}
+});
+
+export default Header;
